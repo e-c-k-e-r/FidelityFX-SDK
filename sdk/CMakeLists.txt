@@ -76,21 +76,7 @@ if (NOT FFX_CUSTOM_API)
 endif()
 
 # Set platform
-if(CMAKE_GENERATOR_PLATFORM STREQUAL "Gaming.Xbox.Scarlett.x64")
-	set(FFX_PLATFORM_NAME gdk_scarlett_x64)
-elseif(CMAKE_GENERATOR_PLATFORM STREQUAL "Gaming.Xbox.XboxOne.x64")
-	set(FFX_PLATFORM_NAME gdk_xboxone_x64)
-elseif(CMAKE_GENERATOR_PLATFORM STREQUAL "x64" OR CMAKE_EXE_LINKER_FLAGS STREQUAL "/machine:x64")
-    set(FFX_PLATFORM_NAME x64)
-elseif(CMAKE_GENERATOR_PLATFORM STREQUAL "Win32" OR CMAKE_EXE_LINKER_FLAGS STREQUAL "/machine:X86")
-    set(FFX_PLATFORM_NAME x86)
-elseif(CMAKE_GENERATOR_PLATFORM STREQUAL "arm64" OR CMAKE_EXE_LINKER_FLAGS STREQUAL "/machine:ARM64")
-    set(FFX_PLATFORM_NAME arm64)
-elseif(CMAKE_GENERATOR_PLATFORM STREQUAL "arm64ec" OR CMAKE_EXE_LINKER_FLAGS STREQUAL "/machine:ARM64EC")
-	set(FFX_PLATFORM_NAME arm64ec)
-else()
-    message(FATAL_ERROR "Unsupported target platform \"${CMAKE_GENERATOR_PLATFORM}\"")
-endif()
+set(FFX_PLATFORM_NAME x64)
 
 # Pre-compile shaders
 set(FFX_AUTO_COMPILE_SHADERS ON CACHE BOOL "Compile shaders automatically as a prebuild step.")

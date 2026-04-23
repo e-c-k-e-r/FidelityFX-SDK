@@ -29,6 +29,8 @@
 #include <windows.h>  // required for OutputDebugString()
 #endif                // #ifdef _WIN32
 
+#include <wchar.h>
+
 static ffxMessageCallback s_messageCallback;
 static uint32_t s_debugLevel;
 

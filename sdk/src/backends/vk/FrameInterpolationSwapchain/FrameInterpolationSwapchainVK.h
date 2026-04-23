@@ -30,6 +30,8 @@
 
 #include <atomic>
 #include <cstdint>
+#include <cstdio>
+#include <cmath>
 
 #include "FrameInterpolationSwapchainVK_Helpers.h"
 

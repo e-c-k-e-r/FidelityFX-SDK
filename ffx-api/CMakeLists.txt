@@ -71,6 +71,12 @@ else()
 add_compile_definitions(CI_PIPELINE_ID=0)
 endif()
 
+if (DEFINED ENV{CI_PIPELINE_ID})
+	add_compile_definitions(CI_PIPELINE_ID=$ENV{CI_PIPELINE_ID})
+else()
+	add_compile_definitions(CI_PIPELINE_ID=0)
+endif()
+
 file(GLOB private_ffx_api
   ${CMAKE_CURRENT_SOURCE_DIR}/src/resource/*.*
 	${CMAKE_CURRENT_SOURCE_DIR}/src/*.h

@@ -24,6 +24,7 @@
 #include <cmath>        // for fabs, abs, sinf, sqrt, etc.
 #include <string.h>     // for memset
 #include <cfloat>       // for FLT_EPSILON
+#include <cstdio>
 #include <FidelityFX/host/ffx_fsr3.h>
 #include <FidelityFX/host/ffx_fsr3upscaler.h>
 #define FFX_CPU
@@ -38,6 +39,7 @@
 #include "../frameinterpolation/ffx_frameinterpolation_private.h"
 
 #include "ffx_fsr3_private.h"
+
 
 // To track only one context is present, also used in fi dispatch callback
 static FfxFsr3Context* s_Context = nullptr;

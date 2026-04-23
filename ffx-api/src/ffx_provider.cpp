@@ -63,6 +63,11 @@ public:
     virtual HRESULT UpdateFfxApiProvider(void* pData, uint32_t dataSizeInBytes) = 0;
 };
 
+
+#if defined(__GNUC__) || defined(__MINGW32__)
+__CRT_UUID_DECL(IAmdExtFfxApi, 0xb58d6601, 0x7401, 0x4234, 0x81, 0x80, 0x6f, 0xeb, 0xfc, 0x0e, 0x48, 0x4c);
+#endif
+
 struct ExternalProviderData
 {
     uint32_t structVersion = 0;
@@ -87,7 +92,7 @@ void GetExternalProviders(ID3D12Device* device, uint64_t descType)
             {
                 typedef HRESULT(__cdecl * PFNAmdExtD3DCreateInterface)(IUnknown * pOuter, REFIID riid, void** ppvObject);
                 PFNAmdExtD3DCreateInterface AmdExtD3DCreateInterface =
-                    static_cast<PFNAmdExtD3DCreateInterface>((VOID*)GetProcAddress(hModule, "AmdExtD3DCreateInterface"));
+                    (PFNAmdExtD3DCreateInterface) ((VOID*)GetProcAddress(hModule, "AmdExtD3DCreateInterface"));
                 if (AmdExtD3DCreateInterface)
                 {
                     HRESULT hr = AmdExtD3DCreateInterface(device, IID_PPV_ARGS(&apiExtension));

@@ -660,7 +660,7 @@ FfxErrorCode ffxConfigureFrameInterpolationSwapchainVK(FfxSwapchain gameSwapChai
         switch (key)
         {
             case FFX_FI_SWAPCHAIN_CONFIGURE_KEY_WAITCALLBACK:
-                pSwapChainVK->setWaitCallback(static_cast<FfxWaitCallbackFunc>(valuePtr));
+                pSwapChainVK->setWaitCallback((FfxWaitCallbackFunc) (valuePtr));
             break;
             case FFX_FI_SWAPCHAIN_CONFIGURE_KEY_FRAMEPACINGTUNING:
                 if (valuePtr != nullptr)
@@ -1184,7 +1184,8 @@ DWORD WINAPI composeAndPresent_presenterThread(LPVOID pParam)
                     // if no frame was presented, we still need to update the semaphore
                     if (toWait.count > 0)
                     {
-                        presenter->presentQueue.submit(VK_NULL_HANDLE, toWait, SubmissionSemaphores());
+                        auto semaphores = SubmissionSemaphores();
+                        presenter->presentQueue.submit(VK_NULL_HANDLE, toWait, semaphores);
                     }
 
                     numFramesSentForPresentation = entry.numFramesSentForPresentationBase + entry.numFramesToPresent;
@@ -1219,7 +1220,7 @@ DWORD WINAPI interpolationThread(LPVOID param)
         if (presenterThreadHandle != 0)
         {
             SetThreadPriority(presenterThreadHandle, THREAD_PRIORITY_HIGHEST);
-            SetThreadDescription(presenterThreadHandle, L"AMD FSR Presenter Thread");
+            //SetThreadDescription(presenterThreadHandle, L"AMD FSR Presenter Thread");
 
             SimpleMovingAverage<10, double> frameTime{};
             int64_t previousQpc = 0;
@@ -2719,7 +2720,7 @@ bool FrameInterpolationSwapChainVK::spawnPresenterThread()
         if (interpolationThreadHandle != 0)
         {
             SetThreadPriority(interpolationThreadHandle, THREAD_PRIORITY_HIGHEST);
-            SetThreadDescription(interpolationThreadHandle, L"AMD FSR Interpolation Thread");
+            //SetThreadDescription(interpolationThreadHandle, L"AMD FSR Interpolation Thread");
         }
 
         SetEvent(presentInfo.interpolationEvent);
@@ -2823,7 +2824,8 @@ VkResult FrameInterpolationSwapChainVK::submitCompositionOnGameQueue(const Pacin
         // if no frame was presented, we still need to update the semaphore
         if (toWait.count > 0)
         {
-            res = presentInfo.gameQueue.submit(VK_NULL_HANDLE, toWait, SubmissionSemaphores());
+            auto semaphore = SubmissionSemaphores();
+            res = presentInfo.gameQueue.submit(VK_NULL_HANDLE, toWait, semaphore);
         }
     }
 

@@ -26,6 +26,7 @@
 #include <FidelityFX/host/backends/vk/ffx_vk.h>
 
 #include <stdlib.h>
+#include <new>
 
 struct InternalFgScContext
 {
@@ -92,7 +93,7 @@ bool ffxProvider_FrameGenerationSwapChain_VK::CanProvide(uint64_t type) const
 uint64_t ffxProvider_FrameGenerationSwapChain_VK::GetId() const
 {
     // FG SwapChain VK, version 1.1.3
-    return 0xF65D'564B'01'001'003ui64;
+    return 0xF65D'564B'01'001'003ULL;
 }
 
 const char* ffxProvider_FrameGenerationSwapChain_VK::GetVersionName() const

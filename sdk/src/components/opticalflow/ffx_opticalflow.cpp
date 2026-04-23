@@ -24,6 +24,7 @@
 #include <cmath>        // for fabs, abs, sinf, sqrt, etc.
 #include <string>       // for memset
 #include <cfloat>       // for FLT_EPSILON
+#include <cstring>      // for memset
 #include "FidelityFX/host/ffx_opticalflow.h"
 
 #ifdef __clang__

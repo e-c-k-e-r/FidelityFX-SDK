@@ -1,3 +1,20 @@
+This fork cleans up some *questionable* choices with the FFX-SDK by:
+
+* adding support for compiling under (MSYS2's) GCC
+* working shader permutation generation (as it relies on being ran under CMD.exe, not bash)
+
+
+To compile (Vulkan):
+```
+cd ./ffx-api/
+mkdir build
+cd build
+cmake -G "Unix Makefiles" -DFFX_API_BACKEND=VK_X64 -DFFX_AUTO_COMPILE_SHADERS=1 -DFFX_BUILD_AS_DLL=1 -DCMAKE_BUILD_TYPE=Release  ..
+make
+```
+
+--
+
 <h1>Welcome to the AMD FidelityFX™ SDK 1.1.4</h1>
 
 ![alt text](/docs/media/fidelityfxsdk-logo-rescaled.png)

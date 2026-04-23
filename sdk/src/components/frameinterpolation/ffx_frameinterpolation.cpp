@@ -24,6 +24,7 @@
 #include <cmath>        // for fabs, abs, sinf, sqrt, etc.
 #include <string>       // for memset
 #include <cfloat>       // for FLT_EPSILON
+#include <cstring>      // for memcmp
 #include <FidelityFX/host/ffx_frameinterpolation.h>
 
 #define FFX_CPU

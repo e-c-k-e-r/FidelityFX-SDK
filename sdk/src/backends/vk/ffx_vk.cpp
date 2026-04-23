@@ -34,6 +34,8 @@
 #endif  // _WIN32
 
 #include <vulkan/vulkan.h>
+#include <cmath>
+#include <mutex>
 
 // prototypes for functions in the interface
 FfxVersionNumber       GetSDKVersionVK(FfxInterface* backendInterface);
