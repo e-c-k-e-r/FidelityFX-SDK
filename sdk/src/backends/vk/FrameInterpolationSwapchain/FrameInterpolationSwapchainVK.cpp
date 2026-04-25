@@ -1591,6 +1591,13 @@ VkResult FrameInterpolationSwapChainVK::init(const VkSwapchainCreateInfoKHR* pCr
     presentInfo.interpolationEvent = CreateEvent(NULL, FALSE, TRUE, TEXT("InterpolationEvent"));
     presentInfo.pacerEvent         = CreateEvent(NULL, FALSE, FALSE, TEXT("PacerEvent"));
 
+    //
+    if ( pCreateInfo->oldSwapchain != VK_NULL_HANDLE ) {
+        VkSwapchainCreateInfoKHR* unconstCreateInfo = const_cast<VkSwapchainCreateInfoKHR*>(pCreateInfo);
+        FrameInterpolationSwapChainVK* ffxSwapchain = reinterpret_cast<FrameInterpolationSwapChainVK*>(pCreateInfo->oldSwapchain);
+        unconstCreateInfo->oldSwapchain = ffxSwapchain->presentInfo.realSwapchain;
+    }
+
     // create the real swapchain
     SwapchainCreationInfo realSwapchainCreateInfo;
     res = getRealSwapchainCreateInfo(pCreateInfo, realSwapchainCreateInfo);
